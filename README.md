@@ -1,4 +1,4 @@
-# OpenCTI SPACESHIELD European Connector
+# OpenCTI SPACESHIELD by European Space Agency (ESA) Connector
 
 | Status | Date | Comment |
 |--------|------|---------|
