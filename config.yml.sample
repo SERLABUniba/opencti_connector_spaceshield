@@ -1,0 +1,19 @@
+opencti:
+  url: 'http://opencti:8080'
+  token: 'ChangeMe'
+
+connector:
+  id: 'ChangeMe'
+  type: 'EXTERNAL_IMPORT'
+  name: 'SPACE-SHIELD'
+  scope: 'attack-pattern,course-of-action,x-mitre-tactic,x-mitre-matrix'
+  confidence_level: 75
+  log_level: 'info'
+  interval: P7D
+  reset_state_on_start: false
+
+spaceshield:
+  stix_url: 'https://spaceshield.esa.int/stix/space-attack.json'
+  confidence_level: 75
+  author_name: 'European Space Agency (ESA)'
+  author_identity_class: 'organization'
