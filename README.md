@@ -56,9 +56,10 @@ There are a number of configuration options, which are set either in `docker-com
 | Parameter         | config.yml      | Docker environment variable   | Default         | Mandatory | Description                                                                 |
 |-------------------|-----------------|-------------------------------|-----------------|-----------|-----------------------------------------------------------------------------|
 | Connector ID      | id              | `CONNECTOR_ID`                |                 | Yes       | A unique `UUIDv4` identifier for this connector instance.                   |
-| Connector Name    | name            | `CONNECTOR_NAME`              | MITRE ATT&CK    | No        | Name of the connector.                                                      |
-| Connector Scope   | scope           | `CONNECTOR_SCOPE`             | mitre           | No        | The scope or type of data the connector is importing.                       |
-| Log Level         | log_level       | `CONNECTOR_LOG_LEVEL`         | error           | No        | Determines the verbosity of the logs: `debug`, `info`, `warn`, or `error`.  |
+| Connector Type      | type              | `CONNECTOR_TYPE`                |                 | Yes       | The type of the connector (in this case "EXTERNAL_IMPORT"                   |
+| Connector Name    | name            | `CONNECTOR_NAME`              | SpaceShield ESA    | No        | Name of the connector.                                                      |
+| Connector Scope   | scope           | `CONNECTOR_SCOPE`             | "identity", "attack-pattern", "course-of-action", "x-mitre-tactic", "x-mitre-matrix"           | No        | The scope or type of data the connector is importing.                       |
+| Log Level         | log_level       | `CONNECTOR_LOG_LEVEL`         | info           | No        | Determines the verbosity of the logs: `debug`, `info`, `warn`, or `error`.  |
 
 ### Connector extra parameters environment variables
 
