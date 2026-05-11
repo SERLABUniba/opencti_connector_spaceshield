@@ -27,7 +27,7 @@ This connector named SPACESHIELD CONNECTOR imports the complete SPACESHIELD fram
 
 ## Introduction
 
-The SPACE-SHIELD (Space Attacks and Countermeasures Engineering Shield) is an ATT&CK® like knowledge-base framework for Space Systems. It is a collection of adversary tactics and techniques, and a security tool applicable in the Space environment to strengthen the security level. It is composed by threats that are relevant for Space systems, leveraging the available and related literature. The Matrix is tailored on the Space Segment and communication links, and it does not address specific types of mission, maintaining a broad and general point of view. 
+The [SPACE-SHIELD]((https://spaceshield.esa.int/) (Space Attacks and Countermeasures Engineering Shield) is an ATT&CK® like knowledge-base framework for Space Systems. It is a collection of adversary tactics and techniques, and a security tool applicable in the Space environment to strengthen the security level. It is composed by threats that are relevant for Space systems, leveraging the available and related literature. The Matrix is tailored on the Space Segment and communication links, and it does not address specific types of mission, maintaining a broad and general point of view. 
 
 This connector imports the complete SPACE-SHIELD framework.
 
@@ -57,20 +57,18 @@ There are a number of configuration options, which are set either in `docker-com
 |-------------------|-----------------|-------------------------------|-----------------|-----------|-----------------------------------------------------------------------------|
 | Connector ID      | id              | `CONNECTOR_ID`                |                 | Yes       | A unique `UUIDv4` identifier for this connector instance.                   |
 | Connector Type      | type              | `CONNECTOR_TYPE`                |                 | Yes       | The type of the connector (in this case "EXTERNAL_IMPORT"                   |
-| Connector Name    | name            | `CONNECTOR_NAME`              | SpaceShield ESA    | No        | Name of the connector.                                                      |
-| Connector Scope   | scope           | `CONNECTOR_SCOPE`             | "identity", "attack-pattern", "course-of-action", "x-mitre-tactic", "x-mitre-matrix"           | No        | The scope or type of data the connector is importing.                       |
-| Log Level         | log_level       | `CONNECTOR_LOG_LEVEL`         | info           | No        | Determines the verbosity of the logs: `debug`, `info`, `warn`, or `error`.  |
+| Connector Name    | name            | `CONNECTOR_NAME`              | SpaceShield ESA    | Yes        | Name of the connector.                                                      |
+| Connector Scope   | scope           | `CONNECTOR_SCOPE`             | "identity", "attack-pattern", "course-of-action", "x-mitre-tactic", "x-mitre-matrix"           | Yes        | The scope or type of data the connector is importing.                       |
+| Log Level         | log_level       | `CONNECTOR_LOG_LEVEL`         | info           | Yes        | Determines the verbosity of the logs: `debug`, `info`, `warn`, or `error`.  |
 
 ### Connector extra parameters environment variables
 
 | Parameter                | config.yml                   | Docker environment variable      | Default                                                                              | Mandatory | Description                                                    |
 |--------------------------|------------------------------|----------------------------------|--------------------------------------------------------------------------------------|-----------|----------------------------------------------------------------|
-| Remove Statement Marking | mitre.remove_statement_marking | `MITRE_REMOVE_STATEMENT_MARKING` | false                                                                              | No        | Remove statement markings from ingested MITRE data.            |
-| Interval                 | mitre.interval               | `MITRE_INTERVAL`                 | 7                                                                                    | Yes       | Interval in days between connector runs.                       |
-| Enterprise File URL      | mitre.enterprise_file_url    | `MITRE_ENTERPRISE_FILE_URL`      | https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/enterprise-attack/enterprise-attack.json | No | URL to MITRE Enterprise ATT&CK JSON. |
-| Mobile File URL          | mitre.mobile_attack_file_url | `MITRE_MOBILE_ATTACK_FILE_URL`   | https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/mobile-attack/mobile-attack.json | No | URL to MITRE Mobile ATT&CK JSON. |
-| ICS File URL             | mitre.ics_attack_file_url    | `MITRE_ICS_ATTACK_FILE_URL`      | https://raw.githubusercontent.com/mitre-attack/attack-stix-data/master/ics-attack/ics-attack.json | No | URL to MITRE ICS ATT&CK JSON. |
-| CAPEC File URL           | mitre.capec_file_url         | `MITRE_CAPEC_FILE_URL`           | https://raw.githubusercontent.com/mitre/cti/master/capec/2.1/stix-capec.json         | No        | URL to CAPEC JSON.                                             |
+| Spaceshield Stix Url | spaceshield.stix_url | `SPACESHIELD_STIX_URL` | https://spaceshield.esa.int/stix/space-attack.json                                                                              | Yes        | The URL for the Knowledge Base.            |
+| Spaceshield Confidence Level | spaceshield.confidence_level | `SPACESHIELD_CONFIDENCE_LEVEL` | 75                                                                              | Yes        | The confidence level for the information ingested.            |
+| Spaceshield Author Name | spaceshield.author_name | `SPACESHIELD_AUTHOR_NAME` | European Space Agency (ESA)                                                                              | Yes        | The author's name for each entity ingested.            |
+| Spaceshield Author Identity Class | spaceshield.author_identity_class | `SPACESHIELD_AUTHOR_IDENTITY_CLASS` | "organization"                                                                              | Yes        | The author's identity class the author.            |
 
 ## Deployment
 
@@ -79,23 +77,33 @@ There are a number of configuration options, which are set either in `docker-com
 Build the Docker image:
 
 ```bash
-docker build -t opencti/connector-mitre:latest .
+docker build -t opencti/connector-spaceshield:latest .
 ```
 
 Configure the connector in `docker-compose.yml`:
 
 ```yaml
-  connector-mitre:
-    image: opencti/connector-mitre:latest
+connector-spaceshield:
+  image: ghcr.io/serlabuniba/opencti_connector_spaceshield:latest
+    build:
+      context: ./connector-spaceshield
     environment:
       - OPENCTI_URL=http://localhost
       - OPENCTI_TOKEN=ChangeMe
       - CONNECTOR_ID=ChangeMe
-      - CONNECTOR_NAME=MITRE ATT&CK
-      - CONNECTOR_SCOPE=mitre
-      - CONNECTOR_LOG_LEVEL=error
-      - MITRE_INTERVAL=7 # In days
-      # - MITRE_REMOVE_STATEMENT_MARKING=true
+      - CONNECTOR_TYPE=EXTERNAL_IMPORT
+      - CONNECTOR_NAME=SpaceShield ESA
+      - CONNECTOR_SCOPE=attack-pattern,course-of-action,x-mitre-tactic,x-mitre-matrix
+      - CONNECTOR_LOG_LEVEL=info
+      - CONNECTOR_DURATION_PERIOD=P7D
+      - CONNECTOR_RESET_STATE_ON_START=false
+      - SPACESHIELD_STIX_URL=https://spaceshield.esa.int/stix/space-attack.json
+      - SPACESHIELD_CONFIDENCE_LEVEL=75
+      - SPACESHIELD_AUTHOR_NAME=European Union Agency (ESA)
+      - SPACESHIELD_AUTHOR_IDENTITY_CLASS=organization
+    depends_on:
+      opencti:
+        condition: service_healthy
     restart: always
 ```
 
@@ -123,7 +131,7 @@ python3 -m __main__
 
 ## Usage
 
-The connector runs automatically at the interval defined by `MITRE_INTERVAL`. MITRE updates ATT&CK quarterly; weekly polling (7 days) is recommended.
+The connector runs automatically at the interval defined by `CONNECTOR_DURATION_PERIOD` (7 days).
 
 To force an immediate run:
 
@@ -133,7 +141,7 @@ Find the connector and click the refresh button to reset the state and trigger a
 
 ## Behavior
 
-The connector fetches STIX 2.1 bundles from MITRE's GitHub repositories and imports them directly into OpenCTI.
+The connector fetches STIX 2.1 bundles from [SPACE-SHIELD]((https://spaceshield.esa.int/) official site and imports them directly into OpenCTI.
 
 ### Data Flow
 
