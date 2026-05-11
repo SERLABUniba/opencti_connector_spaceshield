@@ -27,7 +27,7 @@ This connector named SPACESHIELD CONNECTOR imports the complete SPACESHIELD fram
 
 ## Introduction
 
-The [SPACE-SHIELD]((https://spaceshield.esa.int/) (Space Attacks and Countermeasures Engineering Shield) is an ATT&CK® like knowledge-base framework for Space Systems. It is a collection of adversary tactics and techniques, and a security tool applicable in the Space environment to strengthen the security level. It is composed by threats that are relevant for Space systems, leveraging the available and related literature. The Matrix is tailored on the Space Segment and communication links, and it does not address specific types of mission, maintaining a broad and general point of view. 
+The [SPACE-SHIELD](https://spaceshield.esa.int/) (Space Attacks and Countermeasures Engineering Shield) is an ATT&CK® like knowledge-base framework for Space Systems. It is a collection of adversary tactics and techniques, and a security tool applicable in the Space environment to strengthen the security level. It is composed by threats that are relevant for Space systems, leveraging the available and related literature. The Matrix is tailored on the Space Segment and communication links, and it does not address specific types of mission, maintaining a broad and general point of view. 
 
 This connector imports the complete SPACE-SHIELD framework.
 
@@ -141,7 +141,7 @@ Find the connector and click the refresh button to reset the state and trigger a
 
 ## Behavior
 
-The connector fetches STIX 2.1 bundles from [SPACE-SHIELD]((https://spaceshield.esa.int/) official site and imports them directly into OpenCTI.
+The connector fetches STIX 2.1 bundles from [SPACE-SHIELD](https://spaceshield.esa.int/) official site and imports them directly into OpenCTI.
 
 ### Data Flow
 
