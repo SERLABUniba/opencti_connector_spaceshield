@@ -150,8 +150,6 @@ graph LR
     subgraph MITRE_GitHub [MITRE ATT&CK]
         direction TB
         Enterprise[Enterprise ATT&CK]
-        Mobile[Mobile ATT&CK]
-        ICS[ICS ATT&CK]
         CAPEC[CAPEC]
     end
 
