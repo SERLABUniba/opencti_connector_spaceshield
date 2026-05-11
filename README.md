@@ -147,7 +147,7 @@ The connector fetches STIX 2.1 bundles from [SPACE-SHIELD](https://spaceshield.e
 
 ```mermaid
 graph LR
-    subgraph MITRE_GitHub [MITRE ATT&CK Data]
+    subgraph MITRE_GitHub [MITRE ATT&CK]
         direction TB
         Enterprise[Enterprise ATT&CK]
         Mobile[Mobile ATT&CK]
@@ -162,7 +162,7 @@ graph LR
         SpaceMitigations[Space Mitigations]
     end
 
-    subgraph OpenCTI_Entities [OpenCTI Data Model]
+    subgraph OpenCTI_Entities [OpenCTI]
         direction LR
         AttackPattern[Attack Pattern]
         IntrusionSet[Intrusion Set]
@@ -174,7 +174,7 @@ graph LR
     end
 
     %% Heredity
-    Enterprise -.-> |"Ereditato/Esteso da"| SpaceMatrix
+    Enterprise -.-> |"Extended by"| SpaceMatrix
     
     %% Mapping MITRE -> OpenCTI
     Enterprise --> AttackPattern
@@ -192,8 +192,7 @@ graph LR
     SpaceMitigations --> Course
     
     
-    classDef space fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    class ESA_SpaceShield,SpaceMatrix,SpaceTechniques,SpaceMitigations space;
+
 ```
 
 ### Entity Mapping
