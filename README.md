@@ -195,31 +195,32 @@ graph LR
 
 ### Entity Mapping
 
-| MITRE Data Type      | OpenCTI Entity      | Description                                      |
+| MITRE Data Type      | OpenCTI Entity      | Spaceshield Specific Content & Description       |
 |----------------------|---------------------|--------------------------------------------------|
-| attack-pattern       | Attack Pattern      | Tactics and techniques                           |
+| attack-pattern       | Attack Pattern      | Tactics and techniques. It includes specific space-domain techniques such as “telemetry spoofing” and “link jamming.”                           |
 | intrusion-set        | Intrusion Set       | Threat actor groups                              |
 | malware              | Malware             | Malware families and samples                     |
 | tool                 | Tool                | Legitimate tools used by adversaries             |
 | campaign             | Campaign            | Attack campaigns                                 |
-| course-of-action     | Course of Action    | Mitigations and defensive measures               |
-| x-mitre-tactic       | -                   | Converted to kill chain phases                   |
-| x-mitre-matrix       | -                   | ATT&CK matrix metadata                           |
-| x-mitre-data-source  | -                   | Data sources for detection                       |
-
+| course-of-action     | Course of Action    | Mitigations and defensive measures. It include specific mitigations for the Ground and Space segments (e.g., on-board encryption).               |
+| x-mitre-tactic       | Kill Chain Phases                   | Converted to kill chain phases. It defines specific space-domain phases of the “Space Shield Kill Chain” (e.g., Space Segment Access).                   |
+| x-mitre-matrix       | Kill Chain                   | ATT&CK matrix metadata. It generates the dedicated “Space Systems Matrix” view.                           |
+| x-mitre-data-source  | Data Source                   | Data sources for detection. It includes specific space-domain log sources (e.g., satellite telemetry, ground station logs).                       |
+| x-mitre-data-component  | Data Component                   | Data components for detection. It incldes data subsets (e.g., CCSDS packets, system bus logs).                      |
+| external-reference  | External Reference                   | Direct links to the official Mitre Attack and ESA Space Shield documentation for each technique.                      |
+		
 ### ATT&CK Matrices Imported
 
 1. **Enterprise ATT&CK**: Windows, macOS, Linux, Cloud, Network, Containers
-2. **Mobile ATT&CK**: Android, iOS
-3. **ICS ATT&CK**: Industrial Control Systems
-4. **CAPEC**: Attack patterns with CWE/CVE relationships
+2. **CAPEC**: Attack patterns with CWE/CVE relationships
+3. **Space Shield Kill Chain**: Space-domain specific kill chain phases
 
 ### Processing Details
 
 - **Native STIX Import**: All data is in native STIX 2.1 format
-- **Relationships**: All MITRE relationships (uses, mitigates, subtechnique-of) are preserved
-- **Kill Chain**: ATT&CK tactics are mapped to kill chain phases
-- **External References**: MITRE IDs and documentation links are preserved
+- **Relationships**: All MITRE relationships (uses, mitigates, subtechnique-of) are preserved. Specific relatioships for the “space” domain are added.
+- **Kill Chain**: ATT&CK tactics are mapped to kill chain phases. Specific kill chain phases for the “space” domain are added.
+- **External References**: MITRE IDs and documentation links are preserved. Specific external references are added for the "space" domain (by ESA).
 
 ## Debugging
 
@@ -231,8 +232,5 @@ CONNECTOR_LOG_LEVEL=debug
 
 ## Additional information
 
-- **Update Frequency**: MITRE releases ATT&CK updates quarterly; weekly polling is sufficient
-- **Large Dataset**: Initial import may take several minutes due to the size of ATT&CK
-- **Custom URLs**: You can point to custom or mirrored ATT&CK files if needed
-- **Statement Marking**: Use `MITRE_REMOVE_STATEMENT_MARKING=true` if statement markings interfere with your workflows
-- **Reference**: [MITRE ATT&CK](https://attack.mitre.org/) | [CAPEC](https://capec.mitre.org/)
+- **Large Dataset**: Initial import may take several minutes due to the size
+- **Reference**: [MITRE ATT&CK](https://attack.mitre.org/) | [CAPEC](https://capec.mitre.org/) | [SPACE-SHIELD](https://spaceshield.esa.int/)
